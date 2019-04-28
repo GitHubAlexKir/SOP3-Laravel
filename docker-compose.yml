@@ -1,13 +1,28 @@
 version: '3'
 services:
 
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - laravel-network
+
   #PHP Service
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: digitalocean.com/php
-    container_name: app
+    image: laravel-app
+    container_name: laravel
     restart: unless-stopped
     tty: true
     environment:
@@ -18,27 +33,12 @@ services:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - app-network
-
-  #Nginx Service
-  webserver:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - app-network
+      - laravel-network
 
   #MySQL Service
   db:
     image: mysql:5.7.22
-    container_name: db
+    container_name: mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -52,11 +52,11 @@ services:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - app-network
+      - laravel-network
 
 #Docker Networks
 networks:
-  app-network:
+  laravel-network:
     driver: bridge
 #Volumes
 volumes:

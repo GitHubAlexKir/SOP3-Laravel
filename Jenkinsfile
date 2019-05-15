@@ -17,7 +17,7 @@ pipeline {
         }
          stage('notify') {
             steps {
-                slackSend(color: '#00FF00', message: 'BUILD PASSED')
+                slackSend(color: '#00FF00', baseUrl: 'https://fontys-space.slack.com/services/hooks/jenkins-ci/', teamDomain: 'onWZcO4vvQaAqqzphwuokweo', channel: 'general', tokenCredentialId:'onWZcO4vvQaAqqzphwuokweo',message: 'BUILD PASSED')
             }
         }
     }

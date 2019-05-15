@@ -15,5 +15,10 @@ pipeline {
                 sh 'vendor/bin/phpunit'
             }
         }
+         stage('notify') {
+            steps {
+                slackSend(color: '#00FF00', message: 'BUILD PASSED')
+            }
+        }
     }
 }

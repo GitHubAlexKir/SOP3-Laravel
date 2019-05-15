@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh 'php --version'
                 sh 'composer install'
+                sh 'mv .env.example .env'
             }
         }
         stage('test') {

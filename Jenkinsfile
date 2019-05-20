@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'php --version'
                 sh 'composer install'
-                sh 'mv .env.example .env'
+                sh 'mv gdgerhhew.env.example .env'
                 sh 'php artisan key:generate'
             }
         }

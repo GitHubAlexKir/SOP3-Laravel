@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'php --version'
                 sh 'composer install'
                 sh 'mv .env.example .env'
                 sh 'php artisan key:generate'
@@ -22,7 +21,7 @@ pipeline {
                   withSonarQubeEnv('AlexLarsSonarqube') {
                       sh "${scannerHome}/bin/sonar-scanner"
                   }
-                  def time = '1'
+                  def time = '5'
                   sleep time.toInteger()
                }
             }

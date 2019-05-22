@@ -29,7 +29,6 @@ pipeline {
            steps {
                script {
                   def time = '10'
-                  echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for scanner to complete prior starting quality gate"
                   sleep time.toInteger() // seconds
                }
            }

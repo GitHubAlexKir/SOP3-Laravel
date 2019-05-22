@@ -22,16 +22,10 @@ pipeline {
                   withSonarQubeEnv('AlexLarsSonarqube') {
                       sh "${scannerHome}/bin/sonar-scanner"
                   }
+                  def time = '1'
+                  sleep time.toInteger()
                }
             }
-        }
-        stage('wait') {
-           steps {
-               script {
-                  def time = '10'
-                  sleep time.toInteger() // seconds
-               }
-           }
         }
         stage("Quality Gate 1") {
             steps {

@@ -16,12 +16,12 @@ pipeline {
             }
         }
         stage('SonarQube analysis') {
-            steps {
-                // requires SonarQube Scanner 2.8+
-                withSonarQubeEnv('My SonarQube Server') {
-                     sh "${scannerHome}/bin/sonar-scanner"
-                     }
-                 }
+           steps {
+                def scannerHome = tool 'SonarQubeScanner3'
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
         }
         stage("Quality Gate 1") {
             steps {

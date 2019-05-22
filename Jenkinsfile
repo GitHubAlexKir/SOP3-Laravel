@@ -25,6 +25,13 @@ pipeline {
                }
             }
         }
+        stage ("wait_prior_starting_smoke_testing") {
+            script {
+                def time = '10'
+                echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for scanner to complete prior starting quality gate"
+                sleep time.toInteger() // seconds
+            }
+}
         stage("Quality Gate 1") {
             steps {
                 waitForQualityGate abortPipeline: true

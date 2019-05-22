@@ -17,10 +17,12 @@ pipeline {
         }
         stage('SonarQube analysis') {
            steps {
-                scannerHome = tool 'laravelScanner'
-                withSonarQubeEnv('AlexLarsSonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+               script {
+                  def scannerHome = tool 'laravelScanner'
+                  withSonarQubeEnv('AlexLarsSonarqube') {
+                      sh "${scannerHome}/bin/sonar-scanner"
+                  }
+               }
             }
         }
         stage("Quality Gate 1") {

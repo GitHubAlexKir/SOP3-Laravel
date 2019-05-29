@@ -31,5 +31,10 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
+        stage('Deployment') {
+            steps {
+                sh 'cp -r * /var/www/html'
+            }
+        }
     }
 }

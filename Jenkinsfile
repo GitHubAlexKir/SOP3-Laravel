@@ -38,7 +38,7 @@ pipeline {
                 sh 'ls -al /var/www/html'
                 sh 'cat .env' 
                 sh 'cp .env /var/www/html/.env'
-                sh 'cat /vat/www/html/.env'
+                sh 'cat /var/www/html/.env'
             }
         }
     }

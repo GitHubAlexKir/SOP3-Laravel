@@ -31,5 +31,6 @@ pipeline {
                 sh 'cp -r * /var/www/html'
                 sh 'cp .env /var/www/html/.env'
             }
+       }
     }
 }

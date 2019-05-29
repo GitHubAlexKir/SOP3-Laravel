@@ -34,7 +34,7 @@ pipeline {
         stage('Deployment') {
             steps {
                 sh 'ls -al'
-                sh 'cp -r * /var/www/html'
+                sh 'cp -r *.* /var/www/html'
                 sh 'ls -al /var/www/html'
                 sh 'cat .env' 
                 sh 'cat /vat/www/html/.env'

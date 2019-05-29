@@ -4,10 +4,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'cp -r * /var/www/html'
                 sh '/var/www/html/composer install'
-                sh 'mv /var/www/html/.env.example /var/www/html/.env'
-                sh '/var/www/html/php artisan key:generate'
+                sh 'mv .env.example .env'
+                sh 'php artisan key:generate'
             }
         }
         stage('SonarQube analysis + test') {
@@ -27,5 +26,10 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
+        stage('Deployment') {
+            steps {
+                sh 'cp -r * /var/www/html'
+                sh 'cp .env /var/www/html/.env'
+            }
     }
 }

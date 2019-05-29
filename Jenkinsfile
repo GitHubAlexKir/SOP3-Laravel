@@ -10,12 +10,7 @@ pipeline {
                 sh '/var/www/html/php artisan key:generate'
             }
         }
-        stage('test') {
-            steps {
-                sh '/var/www/html/vendor/bin/phpunit'
-            }
-        }
-        stage('SonarQube analysis') {
+        stage('SonarQube analysis + test') {
            steps {
                script {
                   def scannerHome = tool 'laravelScanner'

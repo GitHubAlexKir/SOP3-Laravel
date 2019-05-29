@@ -4,14 +4,15 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'composer install'
-                sh 'mv .env.example .env'
-                sh 'php artisan key:generate'
+                sh 'cp -r * /var/www/html'
+                sh '/var/www/html/composer install'
+                sh 'mv /var/www/html/.env.example /var/www/html/.env'
+                sh '/var/www/html/php artisan key:generate'
             }
         }
         stage('test') {
             steps {
-                sh 'vendor/bin/phpunit'
+                sh '/var/www/html/vendor/bin/phpunit'
             }
         }
         stage('SonarQube analysis') {
@@ -29,16 +30,6 @@ pipeline {
         stage("Quality Gate 1") {
             steps {
                 waitForQualityGate abortPipeline: true
-            }
-        }
-        stage('Deployment') {
-            steps {
-                sh 'ls -al'
-                sh 'cp -r * /var/www/html'
-                sh 'ls -al /var/www/html'
-                sh 'cat .env' 
-                sh 'cp .env /var/www/html/.env'
-                sh 'cat /var/www/html/.env'
             }
         }
     }

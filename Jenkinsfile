@@ -33,7 +33,6 @@ pipeline {
         }
         stage('Deployment') {
             steps {
-                sh 'chown -R root:jenkins /var/www/html'
                 sh 'cp -r * /var/www/html'
             }
         }

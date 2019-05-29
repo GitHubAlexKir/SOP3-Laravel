@@ -30,6 +30,7 @@ pipeline {
             steps {
                 sh 'cp -r * /var/www/html'
                 sh 'cp .env /var/www/html/.env'
+                sh 'rm /var/www/html/storage/logs/*'
             }
        }
     }

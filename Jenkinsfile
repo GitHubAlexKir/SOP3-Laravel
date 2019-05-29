@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh '/var/www/html/composer install'
+                sh 'composer install'
                 sh 'mv .env.example .env'
                 sh 'php artisan key:generate'
             }

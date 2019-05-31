@@ -33,14 +33,12 @@ pipeline {
             }
         }
         stage('Deployment') {
-            when {
-                // Only deploy if a "params.DEPLOY" is true
-                expression {  params.DEPLOY == true }
-            }
-            steps {
-                sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
-                sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
-                sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
+            if(params.DEPLOY){
+              steps {
+                  sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
+                  sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
+                  sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
+              }
             }
        }
     }

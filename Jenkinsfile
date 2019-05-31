@@ -1,6 +1,11 @@
 
 pipeline {
     agent any
+    parameters {
+        booleanParam(name: 'deploy', defaultValue: true, description: 'Deploy code to Environment')
+
+        choice(name: 'environment', choices: ['DEV', 'PROD', 'ACC'], description: 'Environment to deploy to')
+    }
     stages {
         stage('build') {
             steps {
@@ -16,7 +21,8 @@ pipeline {
                   withSonarQubeEnv('AlexLarsSonarqube') {
                       sh "${scannerHome}/bin/sonar-scanner"
                   }
-                  def time = '5'
+                  sh 'echo this is needed because of slowness of seclab'
+                  def time = '10'
                   sleep time.toInteger()
                }
             }
@@ -27,10 +33,14 @@ pipeline {
             }
         }
         stage('Deployment') {
+            when {
+                // Only deploy if a "params.DEPLOY" is true
+                expression {  params.DEPLOY == true }
+            }
             steps {
-                sh 'cp -r * /var/www/html'
-                sh 'cp .env /var/www/html/.env'
-                sh 'rm /var/www/html/storage/logs/*'
+                sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
+                sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
+                sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
             }
        }
     }

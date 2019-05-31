@@ -32,13 +32,15 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-        stage('Deployment') {
-            if(params.DEPLOY){
+        stage('Deployment') 
               steps {
+                  script {
+                       if (params.DEPLOY) {
                   sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
                   sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
                   sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
-              }
+                     }
+                 }
             }
        }
     }

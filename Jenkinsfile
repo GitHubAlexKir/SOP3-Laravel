@@ -30,18 +30,13 @@ pipeline {
         stage("Quality Gate 1") {
             steps {
                 waitForQualityGate abortPipeline: true
-            }
-        }
-        stage('Deployment') 
-              steps {
-                  script {
-                       if (params.DEPLOY) {
-                            sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
+                 sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
                             sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
                             sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
-                         }
-                   }
-          }
-       
-      }
-}
+            }
+        }
+         stage("Quality Gate 1") {
+            steps {
+            }
+         }
+    }

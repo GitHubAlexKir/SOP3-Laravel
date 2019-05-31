@@ -28,15 +28,16 @@ pipeline {
             }
         }
         stage("Quality Gate 1") {
-            steps {
+          steps {
                 waitForQualityGate abortPipeline: true
                  sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
-                            sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
-                            sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
+                 sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
+                 sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
             }
         }
-         stage("Quality Gate 1") {
-            steps {
-            }
-         }
+        stage("Quality Gate 1") {
+          steps {
+          }
+        }
     }
+}

@@ -9,6 +9,7 @@ pipeline {
         }
         stage("Deploy") {
           steps {
+             sh "chmod -R 777 storage"
              sh "docker-compose -f docker-compose.yml up --force-recreate"
           }
         }

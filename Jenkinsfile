@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'composer install'
-                sh 'mv .env.example .env'
-                sh 'php artisan key:generate'
+                sh "docker build -t laravel-app:B${BUILD_NUMBER} -f Dockerfile ."
             }
         }
         stage("Deploy") {

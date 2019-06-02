@@ -29,7 +29,8 @@ pipeline {
         }
         stage("Deploy") {
           steps {
-             sh "docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit"
+              sh "rm /storage/logs/*"
+             sh "docker-compose -f -d docker-compose.yml up --force-recreate --abort-on-container-exit"
           }
         }
     }

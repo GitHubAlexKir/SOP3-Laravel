@@ -31,7 +31,7 @@ pipeline {
           steps {
               sh "rm -f storage/logs/*"
               sh "rm -f storage/framework/sessions/*"
-             sh "docker-compose -f docker-compose.yml up -d --force-recreate --abort-on-container-exit"
+             sh "docker-compose -f docker-compose.yml up -d --force-recreate"
           }
         }
     }

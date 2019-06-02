@@ -27,6 +27,9 @@ pipeline {
         }
         stage("Deploy") {
           steps {
+             sh "rm -rf storage/logs/*"
+             sh "rm -rf storage/framework/views/*"
+             sh "rm -rf storage/framework/sessions/*"
              sh "chmod -R 777 storage"
              sh "docker-compose -f docker-compose.yml up -d --force-recreate"
           }

@@ -8,21 +8,21 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "81:81"
+      - "444:444"
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - laravel-network
+      - laravel-development-network
 
   #PHP Service
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "laravel-app:${BUILD_NUMBER}"
-    container_name: laravel
+    image: "laravel-development-app:${BUILD_NUMBER}"
+    container_name: laravel-development
     restart: unless-stopped
     tty: true
     environment:
@@ -33,7 +33,7 @@ services:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - laravel-network
+      - laravel-development-network
 
   #MySQL Service
   db:
@@ -52,11 +52,11 @@ services:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - laravel-network
+      - laravel-development-network
 
 #Docker Networks
 networks:
-  laravel-network:
+  laravel-development-network:
     driver: bridge
 #Volumes
 volumes:

@@ -29,7 +29,6 @@ pipeline {
         }
         stage("Deploy") {
           steps {
-              sh "php artisan cache:clear"
               sh "rm -f storage/logs/*"
               sh "rm -f storage/framework/sessions/*"
              sh "docker-compose -f docker-compose.yml up -d --force-recreate"

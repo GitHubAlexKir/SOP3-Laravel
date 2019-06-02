@@ -1,4 +1,3 @@
-
 FROM php:7.2-fpm
 
 # Copy composer.lock and composer.json
@@ -35,16 +34,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www-data www
+RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy existing application directory contents
 COPY . /var/www
 
 # Copy existing application directory permissions
-RUN chown -R www-data:www-data /var/www/storage
-RUN chmod -R 755 /var/www/storage
+COPY --chown=www:www . /var/www
 # Change current user to www
-USER www-data
+USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000

@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "laravel-app:B${BUILD_NUMBER}"
+    image: "laravel-app:1"
     container_name: laravel
     restart: unless-stopped
     tty: true

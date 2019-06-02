@@ -2,6 +2,11 @@
 pipeline {
     agent any
     stages {
+        stage('install') {
+            steps {
+                sh "composer install"
+            }
+        }
         stage('build') {
             steps {
                 sh "docker build -t laravel-app:B${BUILD_NUMBER} -f Dockerfile ."

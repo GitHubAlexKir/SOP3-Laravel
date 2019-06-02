@@ -4,7 +4,7 @@ services:
   #Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: nginx
+    container_name: nginx-development
     restart: unless-stopped
     tty: true
     ports:
@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "laravel-development-app:${BUILD_NUMBER}"
+    image: "laravel-development-app:1"
     container_name: laravel-development
     restart: unless-stopped
     tty: true
@@ -38,11 +38,11 @@ services:
   #MySQL Service
   db:
     image: mysql:5.7.22
-    container_name: mysql
+    container_name: mysql-development
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: 1234

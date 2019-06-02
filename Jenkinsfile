@@ -1,11 +1,6 @@
 
 pipeline {
     agent any
-    parameters {
-        booleanParam(name: 'deploy', defaultValue: true, description: 'Deploy code to Environment')
-
-        choice(name: 'environment', choices: ['DEV', 'PROD', 'ACC'], description: 'Environment to deploy to')
-    }
     stages {
         stage('build') {
             steps {
@@ -34,12 +29,7 @@ pipeline {
         }
         stage("Deploy") {
           steps {
-              sh "rm -rf /var/www/html/${params.ENVIRONMENT}"
-              sh "mkdir /var/www/html/${params.ENVIRONMENT}"
-              sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
-              sh "cp -r * /var/www/html/${params.ENVIRONMENT}"
-              sh "cp .env /var/www/html/${params.ENVIRONMENT}/.env"
-              sh "rm /var/www/html/${params.ENVIRONMENT}/storage/logs/*"
+             sh "docker-compose -f docker-compose.yml up --force-recreate --abort-on-container-exit"
           }
         }
     }

@@ -1,4 +1,3 @@
-
 FROM php:7.2-fpm
 
 # Copy composer.lock and composer.json
@@ -41,8 +40,8 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 # Copy existing application directory permissions
-COPY --chown=www:www . /var/www
-
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 777 /var/www/storage
 # Change current user to www
 USER www
 

@@ -41,10 +41,10 @@ RUN useradd -u 1000 -ms /bin/bash -g www-data www
 COPY . /var/www
 
 # Copy existing application directory permissions
-RUN chown -R www:www-data storage
+RUN chown -R www-data:www-data /var/www/storage
 RUN chmod -R 755 /var/www/storage
 # Change current user to www
-USER www
+USER www-data
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000

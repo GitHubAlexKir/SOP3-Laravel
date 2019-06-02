@@ -4,25 +4,25 @@ services:
   #Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: nginx-development
+    container_name: nginx-acceptance
     restart: unless-stopped
     tty: true
     ports:
-      - "81:81"
-      - "444:444"
+      - "82:82"
+      - "445:445"
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - laravel-development-network
+      - laravel-acceptance-network
 
   #PHP Service
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "laravel-development-app:${BUILD_NUMBER}"
-    container_name: laravel-development
+    image: "laravel-acceptance-app:${BUILD_NUMBER}"
+    container_name: laravel-acceptance
     restart: unless-stopped
     tty: true
     environment:
@@ -33,16 +33,16 @@ services:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - laravel-development-network
+      - laravel-acceptance-network
 
   #MySQL Service
   db:
     image: mysql:5.7.22
-    container_name: mysql-development
+    container_name: mysql-acceptance
     restart: unless-stopped
     tty: true
     ports:
-      - "3307:3307"
+      - "3308:3308"
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: 1234
@@ -52,11 +52,11 @@ services:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - laravel-development-network
+      - laravel-acceptance-network
 
 #Docker Networks
 networks:
-  laravel-development-network:
+  laravel-acceptance-network:
     driver: bridge
 #Volumes
 volumes:

@@ -31,7 +31,7 @@ pipeline {
              sh "rm -rf storage/framework/views/*"
              sh "rm -rf storage/framework/sessions/*"
              sh "chmod -R 777 storage"
-             sh "docker-compose -f docker-compose.yml up -d --force-recreate"
+             sshPublisher(publishers: [sshPublisherDesc(configName: 'DEV', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker-compose -f docker-compose.yml up -d --force-recreate', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
           }
        }
     }

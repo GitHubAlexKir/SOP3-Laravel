@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent '{ docker blazemeter/taurus }'
     stages {
        stage("Load test Taurus") {
           steps {

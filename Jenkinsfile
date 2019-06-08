@@ -34,5 +34,9 @@ pipeline {
              sshPublisher(publishers: [sshPublisherDesc(configName: 'DEV', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker-compose -f /docker/docker-compose.yml up -d --force-recreate', execTimeout: 12000000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
           }
        }
+       stage("Load test Taurus") {
+          steps {
+              sh "bzt load_test.yml -report"
+          }
     }
 }

@@ -36,7 +36,8 @@ pipeline {
        }
        stage("Load test Taurus") {
           steps {
-              sh "bzt load_test.yml -report"
+              sh 'pip install bzt'
+              sh 'bzt load_test.yml -report'
           }
        }
     }

@@ -1,10 +1,10 @@
-node  {
+pipeline {
+    agent any
+    
        stage("Load test Taurus") {
-            BlazeMeterTest: {
-                dir ('SOP3-Laravel'){
-                 sh 'bzt load_test.yml'  
-                }
-            }
+          steps {
+              bzt "load_test.yml -report"
+          }
        }
-  }
-
+    }
+}

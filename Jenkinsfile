@@ -3,7 +3,7 @@ pipeline {
     stages {
        stage("Load test Taurus") {
           steps {
-              bzt "load_test.yml -report"
+              sh "bzt load_test.yml -report"
           }
        }
     }

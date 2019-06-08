@@ -1,14 +1,8 @@
-
-pipeline {
-    agent any
-    stages {
+node  {
        stage("Load test Taurus") {
           steps {
-              script {
-                sh 'pip install bzt'
-                sh 'bzt load_test.yml -report'
-              }
+               sh 'bzt load_test.yml'  
           }
        }
-    }
-}
+  }
+

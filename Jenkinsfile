@@ -1,6 +1,10 @@
 node  {
        stage("Load test Taurus") {
-             sh 'bzt load_test.yml'  
+            BlazeMeterTest: {
+                dir ('SOP3-Laravel'){
+                 sh 'bzt load_test.yml'  
+                }
+            }
        }
   }
 

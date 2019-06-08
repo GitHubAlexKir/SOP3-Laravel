@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker 'blazemeter/taurus' }
+    agent any
     stages {
        stage("Load test Taurus") {
           steps {
-              sh "bzt load_test.yml -report"
+              bzt "load_test.yml -report"
           }
        }
     }

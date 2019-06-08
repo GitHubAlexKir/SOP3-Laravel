@@ -38,5 +38,6 @@ pipeline {
           steps {
               sh "bzt load_test.yml -report"
           }
+       }
     }
 }
